@@ -22,12 +22,13 @@ import itertools
 from collections import namedtuple
 from django.conf.urls import url
 from django.core.exceptions import ImproperlyConfigured
-from django.urls import NoReverseMatch, URLResolver
+from django.urls import NoReverseMatch
 
 from taiga.base.api import views
 from taiga.base import response
 from taiga.base.api.reverse import reverse
 from taiga.base.api.urlpatterns import format_suffix_patterns
+from django.urls import NoReverseMatch, URLResolver
 
 
 Route = namedtuple('Route', ['url', 'mapping', 'name', 'initkwargs'])

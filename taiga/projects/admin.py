@@ -168,11 +168,11 @@ class ProjectAdmin(admin.ModelAdmin):
         obj.delete_related_content()
         super().delete_model(request, obj)
 
-    ## Actions
-    actions = [
-        "make_public",
-        "make_private",
-    ]
+    # ## Actions
+    # actions = [
+    #     "make_public",
+    #     "make_private",
+    # ]
 
     @transaction.atomic
     def make_public(self, request, queryset):
