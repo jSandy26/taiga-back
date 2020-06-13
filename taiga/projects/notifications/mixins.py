@@ -36,6 +36,7 @@ from . apps import signal_comment_mentions
 from . apps import signal_mentions
 from . apps import signal_watchers_added
 from . serializers import WatcherSerializer
+from taiga.projects.tasks import slack
 
 
 class WatchedResourceMixin:
@@ -117,7 +118,7 @@ class WatchedResourceMixin:
                 if not hasattr(obj, field_name) or not hasattr(obj, "get_project"):
                     continue
                 self._old_mentions += services.get_mentions(obj.get_project(), getattr(obj, field_name))
-
+        slack.send_slack_notification(request, obj)
         return super().update(request, *args, **kwargs)
 
     def post_save(self, obj, created=False):
