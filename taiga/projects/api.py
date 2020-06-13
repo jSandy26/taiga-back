@@ -698,7 +698,8 @@ class UserStoryDueDateViewSet(BlockedByProjectMixin, ModelCrudViewSet):
 
 class TaskStatusViewSet(MoveOnDestroyMixin, BlockedByProjectMixin,
                         ModelCrudViewSet, BulkUpdateOrderMixin):
-
+    
+    print('*'*100)
     model = models.TaskStatus
     serializer_class = serializers.TaskStatusSerializer
     validator_class = validators.TaskStatusValidator

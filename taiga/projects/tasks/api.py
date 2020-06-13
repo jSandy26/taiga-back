@@ -46,6 +46,7 @@ from . import serializers
 from . import services
 from . import validators
 from . import utils as tasks_utils
+from . import slack
 
 
 class TaskViewSet(AssignedToSignalMixin, OCCResourceMixin, VotedResourceMixin,
@@ -184,10 +185,13 @@ class TaskViewSet(AssignedToSignalMixin, OCCResourceMixin, VotedResourceMixin,
             self.headers["Taiga-Info-Order-Updated"] = json.dumps(orders_updated)
 
         super().post_save(obj, created)
-
+    
     def update(self, request, *args, **kwargs):
         self.object = self.get_object_or_none()
         project_id = request.DATA.get('project', None)
+        # print("##############################################################")
+        request.obj = self.object
+        # slack.send_slack_notification(request, obj)
 
         if project_id and self.object and self.object.project.id != project_id:
             try:
